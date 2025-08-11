@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+.env
+
+# Data / artifacts
+*.wav
+*.flac
+*.mp3
+*.ogg
+*.m4a
+runs/
+outputs/
+checkpoints/
+*.ckpt
+wandb/
+mlruns/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Cache
+.cache/

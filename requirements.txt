@@ -1,0 +1,16 @@
+# Core
+transformers>=4.41
+datasets[audio]>=2.18
+accelerate>=0.29
+evaluate>=0.4.1
+jiwer>=3.0.3
+librosa>=0.10.2
+soundfile>=0.12.1
+torch>=2.1.0
+torchaudio>=2.1.0
+
+# App
+gradio>=4.0.0
+
+# Optional for perceived loudness (recommended)
+pyloudnorm>=0.1.1
