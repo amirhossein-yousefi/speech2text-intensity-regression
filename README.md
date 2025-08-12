@@ -106,6 +106,7 @@ total_loss = asr_ce_loss + λ * mse(intensity)
 
 The training script validates each epoch and computes **test** metrics at the end.
  you can download the finetuned weights fo one epoch from https://drive.google.com/file/d/1PHc2CU3QAux2mDJ4483AJEo6SbmKk-eZ/view?usp=sharing
+you can check the logs of training in [training-test-logs](training-test-logs)
 ---
 
 ## Notes & Tips
