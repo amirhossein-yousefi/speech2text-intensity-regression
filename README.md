@@ -107,6 +107,34 @@ total_loss = asr_ce_loss + λ * mse(intensity)
 The training script validates each epoch and computes **test** metrics at the end.
  you can download the finetuned weights fo one epoch from https://drive.google.com/file/d/1PHc2CU3QAux2mDJ4483AJEo6SbmKk-eZ/view?usp=sharing
 you can check the logs of training in [training-test-logs](training-test-logs)
+
+
+## SageMaker Deployment (real‑time endpoint)
+
+Deploy the multi-task Whisper model as a **SageMaker** endpoint and serve transcript + intensity.
+
+### 0) Train or download a checkpoint
+Train via `src/train_multitask_whisper.py` (see earlier sections), or use the sample weights the repo links (one epoch) and place them under `./checkpoints/mtl_whisper_small`. See “The training script validates each epoch…” in README for details.  [repo README] 
+
+### 1) Deploy
+
+```bash
+pip install "sagemaker>=2.250.0" boto3
+python sagemaker/deploy_endpoint.py \
+  --bucket YOUR_S3_BUCKET \
+  --ckpt_dir ./checkpoints/mtl_whisper_small \
+  --role_arn arn:aws:iam::<acct>:role/<SageMakerExecutionRole> \
+  --endpoint_name s2t-intensity-whisper \
+  --instance_type ml.g5.xlarge   # or use --serverless
+  
+
+
+```
+### 2) Invoke
+```bash
+python sagemaker/invoke.py --endpoint_name s2t-intensity-whisper --audio path/to/sample.wav
+# => {"transcript": "...", "intensity_dbfs": -17.2}
+```
 ---
 
 ## Notes & Tips
@@ -116,7 +144,6 @@ you can check the logs of training in [training-test-logs](training-test-logs)
 - If you want **human‑annotated intensity/arousal**, consider datasets like MSP‑Podcast or CREMA‑D (adapt labels & licensing accordingly).
 
 ---
-
 ## License
 
 MIT
