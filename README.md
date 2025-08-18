@@ -107,6 +107,15 @@ total_loss = asr_ce_loss + λ * mse(intensity)
 The training script validates each epoch and computes **test** metrics at the end.
  you can download the finetuned weights fo one epoch from https://drive.google.com/file/d/1PHc2CU3QAux2mDJ4483AJEo6SbmKk-eZ/view?usp=sharing
 you can check the logs of training in [training-test-logs](training-test-logs)
+## 🖥️ Training Hardware & Environment
+
+- **Device:** Laptop (Windows, WDDM driver model)  
+- **GPU:** NVIDIA GeForce **RTX 3080 Ti Laptop GPU** (16 GB VRAM)  
+- **Driver:** **576.52**  
+- **CUDA (driver):** **12.9**  
+- **PyTorch:** **2.8.0+cu129**  
+- **CUDA available:** ✅ 
+
 
 
 ## SageMaker Deployment (real‑time endpoint)
