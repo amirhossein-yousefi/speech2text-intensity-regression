@@ -27,6 +27,11 @@ speech-intensity-multitask/
 │  ├─ evaluate.py                   # Evaluate a checkpoint on test split
 │  ├─ inference.py                  # CLI inference on a single audio file
 │  └─ train_multitask_whisper.py    # Train + validate + test
+├─ sagemaker/
+│  ├─ deploy_endpoint.py      # create & deploy a SageMaker endpoint (real-time or serverless)
+│  ├─ invoke.py               # send an audio file to the endpoint and print JSON result
+│  ├─ inference.py            # model load + request/response handling on the endpoint
+│  └─ requirements.txt        # inference-time Python deps for the endpoint container
 ├─ .gitignore
 ├─ Dockerfile
 ├─ LICENSE
