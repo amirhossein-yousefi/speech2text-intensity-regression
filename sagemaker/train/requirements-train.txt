@@ -1,0 +1,5 @@
+datasets[audio]>=2.18.0
+evaluate>=0.4.2
+jiwer>=3.0.4
+pyloudnorm>=0.1.1
+librosa>=0.10.1
