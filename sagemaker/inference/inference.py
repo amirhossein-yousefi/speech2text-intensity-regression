@@ -1,4 +1,3 @@
-# sagemaker/inference.py
 import os, io, json, base64
 import numpy as np
 import torch

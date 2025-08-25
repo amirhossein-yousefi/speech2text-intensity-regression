@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 set -e
 python src/train_multitask_whisper.py \
   --model_id openai/whisper-small \

@@ -1,4 +1,3 @@
-# sagemaker/deploy_endpoint.py
 import argparse, os, tarfile, tempfile, boto3
 from sagemaker import Session
 from sagemaker.pytorch import PyTorchModel

@@ -1,4 +1,3 @@
-# sagemaker/invoke.py
 import argparse, json, base64
 import boto3
 
