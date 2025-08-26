@@ -47,7 +47,7 @@ speech-intensity-multitask/
 │  ├─ train/
 │     ├─ train_entry.py          # entry point that calls src/train_multitask_whisper.py
 │     ├─ train_sm.py             # launch a SageMaker training job (HuggingFace Estimator)   
-│     └─requirements-train.txt   # extra audio/metrics deps for training (see note below)
+│     └─requirements-train.txt   # extra audio/metrics deps for training
 ├─ .gitignore
 ├─ Dockerfile
 ├─ LICENSE
