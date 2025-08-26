@@ -11,6 +11,17 @@ An end-to-end project that **transcribes speech** and **predicts voice intensity
 > Intensity target can be **RMS in dBFS** (simple, robust) or **LUFS** (perceived loudness, ITU-R BS.1770) via `pyloudnorm`.
 
 ---
+## 🚀 Model on Hugging Face
+
+[![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-Speech--Intensity--Whisper-yellow.svg)](https://huggingface.co/Amirhossein75/speech-intensity-whisper)
+
+<p align="center">
+  <a href="https://huggingface.co/Amirhossein75/speech-intensity-whispern">
+    <img src="https://img.shields.io/badge/🤗%20View%20on%20Hugging%20Face-blueviolet?style=for-the-badge" alt="Hugging Face Repo">
+  </a>
+</p>
+
+---
 
 ## Repo Structure
 
@@ -115,8 +126,48 @@ total_loss = asr_ce_loss + λ * mse(intensity)
 - **Intensity**: RMSE (in dBFS or LUFS).
 
 The training script validates each epoch and computes **test** metrics at the end.
- you can download the finetuned weights fo one epoch from https://drive.google.com/file/d/1PHc2CU3QAux2mDJ4483AJEo6SbmKk-eZ/view?usp=sharing
+ you can download the finetuned weights for one epoch from https://drive.google.com/file/d/1PHc2CU3QAux2mDJ4483AJEo6SbmKk-eZ/view?usp=sharing
 you can check the logs of training in [training-test-logs](training-test-logs)
+
+## ⚙️ Training Hyperparameters
+By default, the script uses the [CMU ARCTIC dataset](http://festvox.org/cmu_arctic/) with **AWB → CLB** as the voice conversion pair.
+**Outputs**
+- A standard Hugging Face model folder in `--output_dir` (config + weights + tokenizer files).
+- Use this folder as `--checkpoint` in the local demos.
+
+| **Category**     | **Parameter**            | **Default Value**      | **Description**                              |
+| ---------------- | ------------------------ | ---------------------- | -------------------------------------------- |
+| **Model**        | `model_id`               | `openai/whisper-small` | Base Whisper checkpoint                      |
+|                  | `lambda_intensity`       | `1.0`                  | Loss weight for intensity regression head    |
+| **Dataset**      | `dataset`                | `librispeech`          | Options: `librispeech`, `common_voice`       |
+|                  | `librispeech_config`     | `clean`                | LibriSpeech subset (`clean` / `other`)       |
+|                  | `train_split`            | `train.100`            | Training split                               |
+|                  | `eval_split`             | `validation`           | Validation split                             |
+|                  | `test_split`             | `test`                 | Test split                                   |
+|                  | `language`               | `en`                   | Language code (also used for Common Voice)   |
+|                  | `intensity_method`       | `rms`                  | Options: `rms` (dBFS, −60→0), `lufs` (−70→0) |
+| **Training**     | `epochs`                 | `1`                    | Number of epochs                             |
+|                  | `batch_size`             | `8`                    | Per-device train/eval batch size             |
+|                  | `grad_accum`             | `2`                    | Gradient accumulation steps                  |
+|                  | `lr`                     | `1e-5`                 | Learning rate                                |
+|                  | `seed`                   | `42`                   | Random seed                                  |
+|                  | `fp16`                   | `False`                | Mixed precision training if enabled          |
+| **Trainer Args** | `evaluation_strategy`    | `epoch`                | Evaluate at each epoch                       |
+|                  | `save_strategy`          | `epoch`                | Save checkpoint each epoch                   |
+|                  | `predict_with_generate`  | `True`                 | Generate text during eval                    |
+|                  | `logging_steps`          | `50`                   | Steps between log outputs                    |
+|                  | `report_to`              | `tensorboard`          | Logging backend                              |
+|                  | `load_best_model_at_end` | `True`                 | Restore best checkpoint                      |
+|                  | `metric_for_best_model`  | `eval_wer`             | Best model selected by WER                   |
+|                  | `greater_is_better`      | `False`                | WER minimized                                |
+|                  | `remove_unused_columns`  | `False`                | Keep custom collator inputs                  |
+| **Decoding**     | `max_new_tokens`         | `225`                  | Max tokens when generating                   |
+|                  | `forced_decoder_ids`     | auto                   | Forced prompt IDs for stable decoding        |
+| **Metrics**      | `wer`                    | computed via `jiwer`   | Word Error Rate (↓ better)                   |
+|                  | `intensity_rmse`         | computed               | Root Mean Squared Error of loudness          |
+
+
+
 ## 🖥️ Training Hardware & Environment
 
 - **Device:** Laptop (Windows, WDDM driver model)  
@@ -159,7 +210,7 @@ python sagemaker/inference/invoke.py --endpoint_name s2t-intensity-whisper --aud
 
 You can now train the model on **Amazon SageMaker** using the Hugging Face Deep Learning Containers (DLCs), while reusing the existing `src/train_multitask_whisper.py` script.
 
-### Refer  [here](sagemaker/train) 
+### For more info regarding sagemaker usage go  [here](sagemaker/train) 
 ### Getting Started :
 1. **Install dependencies**
 
