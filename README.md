@@ -120,13 +120,94 @@ total_loss = asr_ce_loss + λ * mse(intensity)
 
 ---
 
-## Metrics
+##  📊 Results & Metrics
 
-- **ASR**: Word Error Rate (WER) via `jiwer`.
-- **Intensity**: RMSE (in dBFS or LUFS).
+### 🔎 Highlights
+- **Test WER (↓):** **4.6976**
+- **Test Intensity RMSE (↓):** **0.7334**
+- **Validation WER (↓):** 4.6973 • **Validation Intensity RMSE (↓):** 1.4492
+
+> Lower is better (↓). WER computed with `jiwer`. Intensity RMSE is the regression error on the loudness target (RMS dBFS by default, or LUFS if `--intensity_method lufs` is used).
+
+---
+
+### ✅ Full Metrics
+
+#### Validation (Dev)
+| Metric | Value |
+|---|---|
+| **Loss** | **2.2288** |
+| **WER (↓)** | **4.6973** |
+| **Intensity RMSE (↓)** | **1.4492** |
+| **Runtime (s)** | **1,156.757**  _(≈ 19m 17s)_ |
+| **Samples / s** | **2.337** |
+| **Steps / s** | **0.292** |
+| **Epoch** | **1** |
+
+#### Test
+| Metric | Value |
+|---|---|
+| **Loss** | **0.6631** |
+| **WER (↓)** | **4.6976** |
+| **Intensity RMSE (↓)** | **0.7334** |
+| **Runtime (s)** | **1,129.272**  _(≈ 18m 49s)_ |
+| **Samples / s** | **2.320** |
+| **Steps / s** | **0.290** |
+| **Epoch** | **1** |
+
+#### Training Summary
+| Metric | Value |
+|---|---|
+| **Train Loss** | **72.5232** |
+| **Runtime (s)** | **6,115.966**  _(≈ 1h 41m 56s)_ |
+| **Samples / s** | **4.666** |
+| **Steps / s** | **0.292** |
+| **Epochs** | **1** |
+
+---
+
+### ℹ️ Notes
+- **ASR quality** is reported as **WER** via `jiwer.wer` on post‑processed, lower‑cased transcripts.  
+- **Intensity target** is computed per‑sample using **RMS dBFS** (clipped to [-60, 0] dB) by default, or **LUFS** (clipped to [-70, 0] LUFS) when `--intensity_method lufs` is used.  
+- Generation used `task="transcribe"` and language as configured in the script, with forced decoder prompt IDs when available.
+
+<details>
+<summary><strong>Raw metrics (for reproducibility)</strong></summary>
+
+```json
+{
+  "validation": {
+    "eval_loss": 2.228771209716797,
+    "eval_wer": 4.69732730414323,
+    "eval_intensity_rmse": 1.4492216110229492,
+    "eval_runtime": 1156.7567,
+    "eval_samples_per_second": 2.337,
+    "eval_steps_per_second": 0.292,
+    "epoch": 1.0
+  },
+  "training": {
+    "train_loss": 72.52319664163974,
+    "train_runtime": 6115.9656,
+    "train_samples_per_second": 4.666,
+    "train_steps_per_second": 0.292,
+    "epoch": 1.0
+  },
+  "test": {
+    "test_loss": 0.6630592346191406,
+    "test_wer": 4.69758064516129,
+    "test_intensity_rmse": 0.7333692312240601,
+    "test_runtime": 1129.2724,
+    "test_samples_per_second": 2.32,
+    "test_steps_per_second": 0.29,
+    "epoch": 1.0
+  }
+}
+```
+
+</details>
 
 The training script validates each epoch and computes **test** metrics at the end.
- you can download the finetuned weights for one epoch from https://drive.google.com/file/d/1PHc2CU3QAux2mDJ4483AJEo6SbmKk-eZ/view?usp=sharing
+ you can download the finetuned weights for one epoch from [here](https://drive.google.com/file/d/1qpk4aJihiLKb2f3yioPu8qb4byyBViWw/view?usp=sharing)
 you can check the logs of training in [training-test-logs](training-test-logs)
 
 ## ⚙️ Training Hyperparameters
@@ -166,7 +247,13 @@ By default, the script uses the [CMU ARCTIC dataset](http://festvox.org/cmu_arct
 | **Metrics**      | `wer`                    | computed via `jiwer`   | Word Error Rate (↓ better)                   |
 |                  | `intensity_rmse`         | computed               | Root Mean Squared Error of loudness          |
 
+### 📉 Loss Curve
 
+The following plot shows the training loss progression:
+
+![Training Loss Curve](assets/train_loss.svg)
+
+*(SVG file generated during training(by tensorboard logs) and stored under `assets/`)*
 
 ## 🖥️ Training Hardware & Environment
 
@@ -177,6 +264,18 @@ By default, the script uses the [CMU ARCTIC dataset](http://festvox.org/cmu_arct
 - **PyTorch:** **2.8.0+cu129**  
 - **CUDA available:** ✅ 
 
+
+## 📊 Training Logs & Metrics
+
+- **Total FLOPs (training):** `8,260,304,304,527,639,000`  
+- **Training runtime:** `6,115.9658` seconds  
+- **Logging:** TensorBoard-compatible logs in `src/checkpoint/logs`  
+
+You can monitor training live with:
+
+```bash
+tensorboard --logdir src/checkpoint/log
+```
 
 
 ## SageMaker Deployment (real‑time endpoint)

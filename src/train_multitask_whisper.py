@@ -202,11 +202,12 @@ def main():
         predict_with_generate=True,
         fp16=args.fp16,
         logging_steps=50,
-        report_to=["none"],
+        report_to=["tensorboard"],
         load_best_model_at_end=True,
         metric_for_best_model="eval_wer",
         greater_is_better=False,
         remove_unused_columns=False,
+        logging_dir=os.path.join(args.output_dir,"logs")
 
     )
 

@@ -1,3 +1,10 @@
 {'eval_loss': 2.228116512298584, 'eval_wer': 4.059887504135878, 'eval_runtime': 1138.5194, 'eval_samples_per_second': 2.374, 'eval_steps_per_second': 0.297, 'epoch': 1.0}
 {'train_runtime': 6103.6193, 'train_samples_per_second': 4.676, 'train_steps_per_second': 0.292, 'train_loss': 72.47557506860639, 'epoch': 1.0}
 TEST: {'test_loss': 0.6354733109474182, 'test_wer': 4.029785453438832, 'test_runtime': 1117.4878, 'test_samples_per_second': 2.345, 'test_steps_per_second': 0.294, 'epoch': 1.0, 'test_intensity_rmse': 0.7143185138702393}
+
+iteration 2 logs :
+{'eval_loss': 2.228771209716797, 'eval_wer': 4.69732730414323, 'eval_runtime': 1156.7567, 'eval_samples_per_second': 2.337, 'eval_steps_per_second': 0.292, 'epoch': 1.0}
+{'eval_intensity_rmse': 1.4492216110229492, 'epoch': 1.0}
+{'train_runtime': 6115.9656, 'train_samples_per_second': 4.666, 'train_steps_per_second': 0.292, 'train_loss': 72.52319664163974, 'epoch': 1.0}
+
+TEST: {'test_loss': 0.6630592346191406, 'test_wer': 4.69758064516129, 'test_runtime': 1129.2724, 'test_samples_per_second': 2.32, 'test_steps_per_second': 0.29, 'epoch': 1.0, 'test_intensity_rmse': 0.7333692312240601}
