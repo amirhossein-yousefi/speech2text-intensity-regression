@@ -16,7 +16,7 @@ An end-to-end project that **transcribes speech** and **predicts voice intensity
 [![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-Speech--Intensity--Whisper-yellow.svg)](https://huggingface.co/Amirhossein75/speech-intensity-whisper)
 
 <p align="center">
-  <a href="https://huggingface.co/Amirhossein75/speech-intensity-whispern">
+  <a href="https://huggingface.co/Amirhossein75/speech-intensity-whisper">
     <img src="https://img.shields.io/badge/🤗%20View%20on%20Hugging%20Face-blueviolet?style=for-the-badge" alt="Hugging Face Repo">
   </a>
 </p>
